@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
-.f1-formulaRacing{
+h1{
     margin-top: 2rem;
+}
+
+.indian-mutualFund{
+    display: flex;
+    flex-wrap: wrap;
 }
