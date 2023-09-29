@@ -5,6 +5,7 @@ const mutualFundData = document.querySelector('.mutualFund-data');
 const luciferHeading = document.querySelector('.lucifer-heading');
 const luciferData = document.querySelector('.lucifer-data');
 
+//Array with name of the API and endpoint.
 const endpointsArray = [
   {
     name: "F1 formula racing",
@@ -24,10 +25,8 @@ function callFetch(endpointsArrayIndex) {
   const index = endpointsArrayIndex;
   fetchData(endpointsArray[index].name, endpointsArray[index].url);
 }
-for (let i = 0; i < endpointsArray.length; i++) {
 
-}
-
+//Here we are fetching the data from the api and sending the response to each function based on the name.
 async function fetchData(name, url) {
   try {
     const response = await fetch(url);
@@ -44,6 +43,7 @@ async function fetchData(name, url) {
   }
 }
 
+//The function gets the F1 formula racing json data and displaying it using DOM
 function f1FormulaRacing(jsonData) {
   resetLuciferInfo();
   resetMutualFundInfo();
@@ -73,12 +73,13 @@ function f1FormulaRacing(jsonData) {
           `;
       f1Data.appendChild(tableRow);
       counter++;
-    }else{
+    } else {
       break;
     }
   }
 }
 
+//The function gets the Indian mutual fund json data and displaying it using DOM
 function indianMutualFundDetails(jsonData) {
   resetF1Info();
   resetLuciferInfo();
@@ -108,6 +109,7 @@ function indianMutualFundDetails(jsonData) {
   }
 }
 
+//The function gets the lucifer series quotes json data and displaying it using DOM
 function luciferSeriesQuotes(jsonData) {
   resetF1Info();
   resetMutualFundInfo();
@@ -136,6 +138,8 @@ function luciferSeriesQuotes(jsonData) {
   }
 }
 
+//resetting each api's data as we display the information using appendChild the data 
+                        //is being on the webpage when we are trying to show other api data so resetting other two api's data when calling one.
 function resetLuciferInfo() {
   luciferData.innerHTML = '';
   luciferHeading.innerHTML = '';
