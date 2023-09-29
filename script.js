@@ -8,8 +8,8 @@ const endpointsArray = [
     url: "https://api.mfapi.in/mf"
   },
   {
-    name: "",
-    url: ""
+    name: "Lucifer series quotes",
+    url: "https://lucifer-quotes.vercel.app/api/quotes/10"
   }
 ];
 
@@ -25,6 +25,8 @@ async function fetchData(name, url) {
       f1FormulaRacing(jsonData);
     } else if (name == "Indian mutual funds") {
       indianMutualFundDetails(jsonData);
+    }else{
+      luciferSeriesQuotes(jsonData);
     }
   } catch (error) {
     console.log("Error: ", error);
@@ -79,5 +81,35 @@ function indianMutualFundDetails(jsonData) {
       break;
     }
   }
+}
+
+function luciferSeriesQuotes(jsonData){
+  const luciferQuotes = jsonData;
+  // console.log(jsonData);
+  
+  for (const {
+    "quote": quote,
+    "author": author
+  } of luciferQuotes) {
+    const tableRow = document.createElement('div');
+    tableRow.style.backgroundColor = "brown";
+    tableRow.style.color = "white";
+    tableRow.style.borderRadius = "10px";
+    tableRow.style.boxShadow="5px 5px black";
+    tableRow.style.padding = "1rem";
+    tableRow.style.margin = "1rem";
+    tableRow.innerHTML = `
+      <p>${quote}</p>
+      <p class="text-end">-${author}</p>
+      `
+      const classSelector = document.querySelector('.lucifer-quote');
+      classSelector.appendChild(tableRow);
+      
+  }
+  // const tagName = document.querySelector('.lucifer-quotes');
+  // tagName.innerHTML = `
+  // <h1 class="text-center" id="title">Lucifer Series Quotes</h1>
+  // <p class="text-center" id="description">This api has the data has the quotes used on the Lucifer netflix series</p>
+  // `;
 }
 
