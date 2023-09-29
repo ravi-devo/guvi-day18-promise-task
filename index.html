@@ -12,48 +12,58 @@
 
 <body>
     <div class="container">
-        <div class="f1-formulaRacing">
-            <h1 class="text-center" id="title">F1 Formula racing driver details </h1>
-            <p class="text-center" id="description">The details fetched from one of the public API using fetch.</p>
-            <table class="table table-bordered table-light">
+        <div>
+            <h1 class="text-center" id="title">Promise Task</h1>
+            <p class="text-center mb-5" id="description">Here we are fetching data of 3 API's and displaying the details in a
+                look, feel and understandable way.</p>
+            <table class="table table-bordered table-primary">
                 <thead>
-                    <th>
-                        Id
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Family Name
-                    </th>
-                    <th>
-                        DOB
-                    </th>
-                    <th>
-                        Nationality
-                    </th>
-                    <th>
-                        Biography
-                    </th>
+                    <th>Serial No</th>
+                    <th>API Name</th>
+                    <th>Fetch Data</th>
                 </thead>
-                <tbody class="data-flow">
-
+                <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>F1 Formula racing driver details</td>
+                        <td class="click-me"><u onclick="callFetch(0)">Click me to fetch data below</u></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            2
+                        </td>
+                        <td>Indian Mutual fund details</td>
+                        <td class="click-me"><u onclick="callFetch(1)">Click me to fetch data below</u></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            3
+                        </td>
+                        <td>Lucifer Series Quotes</td>
+                        <td class="click-me"><u onclick="callFetch(2)">Click me to fetch data below</u></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <div class="indian-mutualFund">
-            <h1 class="text-center" id="title">Indian Mutual fund details</h1>
-            <p class="text-center" id="description">India's first free mutual fund api</p>
-            <div class="indian-mutualFunds">
-
-            </div>
+        <div class="f1-formula-heading">
+            
         </div>
-        <div class="lucifer-quotes">
-            <h1 class="text-center" id="title">Lucifer Series Quotes</h1>
-            <p class="text-center" id="description">This api has the data has the quotes used on the Lucifer netflix series</p>
-            <div class="lucifer-quote">
+        <div class="f1-formula-data">
 
-            </div>
+        </div>
+        <div class="mutualFund-heading">
+            
+        </div>
+        <div class="mutualFund-data">
+
+        </div>
+        <div class="lucifer-heading">
+            
+        </div>
+        <div class="lucifer-data">
+
         </div>
     </div>
     <script src="script.js"></script>

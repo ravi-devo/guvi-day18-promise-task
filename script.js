@@ -1,3 +1,10 @@
+const f1Heading = document.querySelector('.f1-formula-heading');
+const f1Data = document.querySelector('.f1-formula-data');
+const mutualFundHeading = document.querySelector('.mutualFund-heading');
+const mutualFundData = document.querySelector('.mutualFund-data');
+const luciferHeading = document.querySelector('.lucifer-heading');
+const luciferData = document.querySelector('.lucifer-data');
+
 const endpointsArray = [
   {
     name: "F1 formula racing",
@@ -13,8 +20,12 @@ const endpointsArray = [
   }
 ];
 
+function callFetch(endpointsArrayIndex) {
+  const index = endpointsArrayIndex;
+  fetchData(endpointsArray[index].name, endpointsArray[index].url);
+}
 for (let i = 0; i < endpointsArray.length; i++) {
-  fetchData(endpointsArray[i].name, endpointsArray[i].url);
+
 }
 
 async function fetchData(name, url) {
@@ -25,7 +36,7 @@ async function fetchData(name, url) {
       f1FormulaRacing(jsonData);
     } else if (name == "Indian mutual funds") {
       indianMutualFundDetails(jsonData);
-    }else{
+    } else {
       luciferSeriesQuotes(jsonData);
     }
   } catch (error) {
@@ -34,8 +45,14 @@ async function fetchData(name, url) {
 }
 
 function f1FormulaRacing(jsonData) {
+  resetLuciferInfo();
+  resetMutualFundInfo();
   const f1Drivers = jsonData.MRData.DriverTable.Drivers;
   let counter = 1;
+  f1Heading.innerHTML = `
+  <h1 class="text-center" id="title">F1 Formula racing driver details</h1>
+  <p class="text-center" id="description">The details fetched from one of the public API using fetch.</p>
+  `;
   for (const {
     "url": biographyURL,
     "givenName": name,
@@ -44,38 +61,17 @@ function f1FormulaRacing(jsonData) {
     "nationality": nationality
   }
     of f1Drivers) {
-    const tableRow = document.createElement('tr');
-    tableRow.innerHTML = `
-          <td>${counter}</td>
+    if (counter <= 10) {
+      const tableRow = document.createElement('div');
+      tableRow.innerHTML = `<table class="table table-bordered table-light"><thead><th>Id</th><th>Name</th><th>Family Name</th><th>DOB</th><th>Nationality</th><th>Biography</th></thead>
+          <tbody><tr><td>${counter}</td>
           <td>${name}</td>
           <td>${lastName}</td>
           <td>${dOB}</td>
           <td>${nationality}</td>
-          <td><a href="${biographyURL}" target="_blank">${name}'s biography</a></td>
+          <td><a href="${biographyURL}" target="_blank">${name}'s biography</a></td></tr><tbody></table>
           `;
-    const classSelector = document.querySelector('.data-flow');
-    classSelector.appendChild(tableRow);
-    counter++;
-  }
-}
-
-function indianMutualFundDetails(jsonData) {
-  const mutualFundDetails = jsonData;
-  let counter = 1;
-  for (const {
-    "schemeCode": schemeCode,
-    "schemeName": schemeName
-  } of mutualFundDetails) {
-    if(counter <= 30){
-      const tableRow = document.createElement('div');
-      tableRow.innerHTML = `
-      <table class="table table-bordered table-dark w-50">
-      <thead><th>Scheme Code</th><th>Scheme Name</th></thead>
-      <tbody><tr><td>${schemeCode}</td><td>${schemeName}</td>
-      </table>
-      `
-      const classSelector = document.querySelector('.indian-mutualFunds');
-      classSelector.appendChild(tableRow);
+      f1Data.appendChild(tableRow);
       counter++;
     }else{
       break;
@@ -83,10 +79,43 @@ function indianMutualFundDetails(jsonData) {
   }
 }
 
-function luciferSeriesQuotes(jsonData){
+function indianMutualFundDetails(jsonData) {
+  resetF1Info();
+  resetLuciferInfo();
+  const mutualFundDetails = jsonData;
+  let counter = 1;
+  mutualFundHeading.innerHTML = `
+  <h1 class="text-center" id="title">Indian Mutual fund details</h1>
+  <p class="text-center" id="description">India's first free mutual fund api</p>
+  `;
+  for (const {
+    "schemeCode": schemeCode,
+    "schemeName": schemeName
+  } of mutualFundDetails) {
+    if (counter <= 10) {
+      const tableRow = document.createElement('div');
+      tableRow.innerHTML = `
+      <table class="table table-bordered table-dark w-50">
+      <thead><th>Scheme Code</th><th>Scheme Name</th></thead>
+      <tbody><tr><td>${schemeCode}</td><td>${schemeName}</td>
+      </table>
+      `
+      mutualFundData.appendChild(tableRow);
+      counter++;
+    } else {
+      break;
+    }
+  }
+}
+
+function luciferSeriesQuotes(jsonData) {
+  resetF1Info();
+  resetMutualFundInfo();
   const luciferQuotes = jsonData;
-  // console.log(jsonData);
-  
+  luciferHeading.innerHTML = `
+  <h1 class="text-center" id="title">Lucifer Series Quotes</h1>
+  <p class="text-center" id="description">This api has the data has the quotes used on the Lucifer netflix series</p>
+  `;
   for (const {
     "quote": quote,
     "author": author
@@ -95,21 +124,29 @@ function luciferSeriesQuotes(jsonData){
     tableRow.style.backgroundColor = "brown";
     tableRow.style.color = "white";
     tableRow.style.borderRadius = "10px";
-    tableRow.style.boxShadow="5px 5px black";
+    tableRow.style.boxShadow = "5px 5px black";
     tableRow.style.padding = "1rem";
     tableRow.style.margin = "1rem";
     tableRow.innerHTML = `
       <p>${quote}</p>
       <p class="text-end">-${author}</p>
       `
-      const classSelector = document.querySelector('.lucifer-quote');
-      classSelector.appendChild(tableRow);
-      
+    luciferData.appendChild(tableRow);
+
   }
-  // const tagName = document.querySelector('.lucifer-quotes');
-  // tagName.innerHTML = `
-  // <h1 class="text-center" id="title">Lucifer Series Quotes</h1>
-  // <p class="text-center" id="description">This api has the data has the quotes used on the Lucifer netflix series</p>
-  // `;
 }
 
+function resetLuciferInfo() {
+  luciferData.innerHTML = '';
+  luciferHeading.innerHTML = '';
+}
+
+function resetF1Info() {
+  f1Data.innerHTML = '';
+  f1Heading.innerHTML = '';
+}
+
+function resetMutualFundInfo() {
+  mutualFundData.innerHTML = '';
+  mutualFundHeading.innerHTML = '';
+}
